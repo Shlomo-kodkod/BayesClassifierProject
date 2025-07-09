@@ -1,5 +1,5 @@
 import pandas as pd
-from service.naive_bayes import NaiveBayes
+from models.naive_bayes import NaiveBayes
 
 class TestModel:
     def __init__(self, data: pd.DataFrame, model: NaiveBayes, target_map: dict[any, dict[any, dict[any, float]]]):
