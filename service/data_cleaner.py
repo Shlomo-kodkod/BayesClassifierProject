@@ -10,10 +10,12 @@ class DataCleaner:
         for col in self.__all_data.columns:
             self.__all_data[col] = self.__all_data[col].fillna(self.__all_data[col].value_counts().idxmax())
 
-    def get_train_data(self):
+    @property
+    def train_data(self) -> pd.DataFrame:
         return self.__all_data[:self.__index]
             
-    def get_test_data(self):
+    @property
+    def test_data(self) -> pd.DataFrame:
         return self.__all_data[self.__index:]
         
         

@@ -25,14 +25,12 @@ class NaiveBayes:
                      prob_calc[val] = ((val_count.get(val, 0) + 1) / (len(df_cls) + len(unique_val)))
                 
                 self.__model_data[cls][col] = prob_calc
-        return self
    
-
     @property
-    def model_data(self):
+    def model_data(self) -> dict[any, dict[any, dict[any, float]]]:
         return self.__model_data
     
     @property
-    def target_value(self):
+    def target_value(self) -> dict[str | int, float] | None:
         return self.__values_map
 
