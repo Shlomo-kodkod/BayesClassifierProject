@@ -1,6 +1,6 @@
-import pandas as pd
 from tkinter import Tk, filedialog
 import ctypes
+import pandas as pd
 
 if __name__ == "__main__":
 
@@ -17,6 +17,7 @@ if __name__ == "__main__":
         filetypes=[("CSV Files", "*.csv")]
     )
     # df = pd.read_csv(r'data\buy_computer_data.csv')
+    df = None
     if file_path:
         try:
             df = pd.read_csv(file_path)
@@ -38,7 +39,7 @@ if __name__ == "__main__":
 
         for feature in data_columns:
             model_data[cls][feature] = ((df_cls[feature].value_counts() + 1) / (df_cls[feature].count() + len(df_cls[feature].unique()))).to_dict()
-
+    print(values_map)
     print(model_data)
 
     
