@@ -1,5 +1,5 @@
 import pandas as pd
-from service.data_loader import DataLoader 
+from utils.data_loader import DataLoader 
 
 class FileLoader(DataLoader):
         

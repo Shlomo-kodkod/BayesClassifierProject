@@ -1,7 +1,7 @@
-from service.file_loader import FileLoader
-from service.data_cleaner import DataCleaner
-from service.naive_bayes import NaiveBayes
-from service.test_model import TestModel
+from utils.file_loader import FileLoader
+from models.data_cleaner import DataCleaner
+from models.naive_bayes import NaiveBayes
+from models.test_model import TestModel
 
 
 
