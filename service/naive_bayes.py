@@ -2,24 +2,37 @@ import pandas as pd
 
 class NaiveBayes:
     
-    def __init__(self):
-        self.__data_column = None
-        self.__target_column = None
+    def __init__(self, data:pd.DataFrame):
+        self.__train_data = data
+        self.__data_columns = data.columns[:-1]  
+        self.__target_column = data.columns[-1] 
         self.__values_map = None
-        self.model_data = {}
+        self.__model_data = {}
 
-    def  fit(self, df:pd.DataFrame):
-        self.__data_columns = df.columns[:-1]  
-        self.__target_column = df.columns[-1]  
-        self.__values_map = (df[self.__target_column].value_counts() / df[self.__target_column].count()).to_dict()
+    def  fit(self):
+        self.__values_map = (self.__train_data[self.__target_column].value_counts() / self.__train_data[self.__target_column].count()).to_dict()
         
-
         for cls in self.__values_map:
-            df_cls = df[df[self.__target_column] == cls] 
+            df_cls = self.__train_data[self.__train_data[self.__target_column] == cls] 
             self.__model_data[cls] = dict()
 
             for col in self.__data_columns:
-                self.__model_data[cls][col] = ((df_cls[col].value_counts() + 1) / (df_cls[col].count() + len(df_cls[col].unique()))).to_dict()
+                unique_val = self.__train_data[col].unique()
+                val_count = df_cls[col].value_counts()
+
+                prob_calc = dict()
+                for val in unique_val:
+                     prob_calc[val] = ((val_count.get(val, 0) + 1) / (len(df_cls) + len(unique_val)))
+                
+                self.__model_data[cls][col] = prob_calc
         return self
+   
+
+    @property
+    def model_data(self):
+        return self.__model_data
     
+    @property
+    def target_value(self):
+        return self.__values_map
 
