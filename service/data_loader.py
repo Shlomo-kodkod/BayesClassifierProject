@@ -1,16 +1,8 @@
 from abc import ABC, abstractmethod
 
-class DataLoader:
+class DataLoader(ABC):
 
     @abstractmethod
-    def data_loader(self):
-        pass
-
-    @abstractmethod
-    def get_training_data(self):
-        pass
-
-    @abstractmethod
-    def get_test_data(self):
+    def load_data(file_path: str):
         pass
 
