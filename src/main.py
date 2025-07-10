@@ -10,8 +10,8 @@ if __name__ == "__main__":
     dc = DataCleaner(df)
     tr_df = dc.train_data
     ts_df = dc.test_data
-    tr = NaiveBayes(tr_df)
+    tr = NaiveBayes(tr_df, -1)
     tr.fit()
-    ts = TestModel(ts_df, tr.model_data, tr.target_value)
+    ts = TestModel(ts_df, tr)
     res = ts.test_model()
     print(res)
