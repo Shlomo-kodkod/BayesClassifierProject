@@ -1,28 +1,59 @@
 from fastapi import FastAPI
 import uvicorn
+from pydantic import BaseModel
 import pandas as pd
 from src.menu.manager import Manager
 
 manager = Manager()
 app = FastAPI()
 
+class ParmsData(BaseModel):
+    Index: str
+    UsingIP: str
+    LongURL: str
+    ShortURL: str
+    Symbol: str
+    Redirecting: str
+    PrefixSuffix: str
+    SubDomains: str
+    HTTPS: str
+    DomainRegLen: int
+    Favicon: str
+    NonStdPort: str
+    HTTPSDomainURL: str
+    RequestURL: str
+    AnchorURL: str
+    LinksInScriptTags: str
+    ServerFormHandler: str
+    InfoEmail: str
+    AbnormalURL: str
+    WebsiteForwarding: str
+    StatusBarCust: str
+    DisableRightClick: str
+    UsingPopupWindow: str
+    IframeRedirection: str
+    AgeofDomain: str
+    DNSRecording: str
+    WebsiteTraffic: str
+    PageRank: str
+    GoogleIndex: str
+    LinksPointingToPage: str
+    StatsReport: str
 
-@app.get("/predict")
-def get_predict( age: str, income: str, student: str, credit_rating: str):
-        data = {'age': age, 'income': income, 'student': student, 'credit_rating': credit_rating}
-        series = pd.Series(data=data, index=['age', 'income', 'student', 'credit_rating'])
-        return {"prediction": manager.test_model.predict(series)}
+
+
+@app.post("/predict")
+def get_predict(user_data: ParmsData):
+    series = pd.Series(user_data.model_dump())
+    return {
+            "prediction": manager.test_model.predict(series),
+            "result map": "1 = Phishing Website, -1 = Non-Phishing Website"
+            }
+
 
 @app.get("/precision")
 def get_precision():
     return {"model precision": manager.test_model.test_model()}
-
-
-
-
-
-
-
 
 
 
