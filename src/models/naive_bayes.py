@@ -4,11 +4,10 @@ class NaiveBayes:
     
     def __init__(self, data:pd.DataFrame, target: str | int):
         self.__train_data = data
-        self.__data_columns = data.columns[:target]  
-        self.__target_column = data.columns[target] 
+        self.__data_columns = [col for col in data.columns if col != target]
+        self.__target_column = target
         self.__values_map = None
         self.__model_data = {}
-        self.__target_label = target
 
     def  fit(self):
         self.__values_map = (self.__train_data[self.__target_column].value_counts() / self.__train_data[self.__target_column].count()).to_dict()
@@ -36,7 +35,6 @@ class NaiveBayes:
         return self.__values_map
     
     @property
-    def target_label(self) -> str | int:
-        return self.__target_label
-    
+    def target_column(self) -> str | int:
+        return self.__target_column
 

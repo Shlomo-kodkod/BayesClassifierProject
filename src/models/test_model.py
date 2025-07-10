@@ -1,10 +1,11 @@
 import pandas as pd
-from models.naive_bayes import NaiveBayes
+from src.models.naive_bayes import NaiveBayes
 
 class TestModel:
     def __init__(self, data: pd.DataFrame, model: NaiveBayes):
         self.__train_data = data
         self.__model = model
+
 
     def predict(self, row: pd.Series) -> str | int:
         result = dict()
@@ -18,7 +19,9 @@ class TestModel:
     def test_model(self) -> float:
         correct_cnt = 0
         for index, row in self.__train_data.iterrows():
-            correct_cnt += (1 if self.predict(row.iloc[:self.__model.target_label]) == row.iloc[self.__model.target_label] else 0)
+            current_row = row.drop(self.__model.target_column)
+            correct_value = row[self.__model.target_column]
+            correct_cnt += (1 if self.predict(current_row) == correct_value else 0)
         return (correct_cnt / len(self.__train_data)) * 100
 
          
