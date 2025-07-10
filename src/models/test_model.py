@@ -3,7 +3,7 @@ from src.models.naive_bayes import NaiveBayes
 
 class TestModel:
     def __init__(self, data: pd.DataFrame, model: NaiveBayes):
-        self.__train_data = data
+        self.__test_data = data
         self.__model = model
 
 
@@ -18,11 +18,11 @@ class TestModel:
     
     def test_model(self) -> float:
         correct_cnt = 0
-        for index, row in self.__train_data.iterrows():
+        for index, row in self.__test_data.iterrows():
             current_row = row.drop(self.__model.target_column)
             correct_value = row[self.__model.target_column]
             correct_cnt += (1 if self.predict(current_row) == correct_value else 0)
-        return (correct_cnt / len(self.__train_data)) * 100
+        return (correct_cnt / len(self.__test_data)) * 100
 
          
         

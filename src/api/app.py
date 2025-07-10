@@ -8,47 +8,52 @@ manager = Manager()
 app = FastAPI()
 
 class ParmsData(BaseModel):
-    Index: str
-    UsingIP: str
-    LongURL: str
-    ShortURL: str
-    Symbol: str
-    Redirecting: str
-    PrefixSuffix: str
-    SubDomains: str
-    HTTPS: str
+    Index: int
+    UsingIP: int
+    LongURL: int
+    ShortURL: int
+    Symbol: int
+    Redirecting: int
+    PrefixSuffix: int
+    SubDomains: int
+    HTTPS: int
     DomainRegLen: int
-    Favicon: str
-    NonStdPort: str
-    HTTPSDomainURL: str
-    RequestURL: str
-    AnchorURL: str
-    LinksInScriptTags: str
-    ServerFormHandler: str
-    InfoEmail: str
-    AbnormalURL: str
-    WebsiteForwarding: str
-    StatusBarCust: str
-    DisableRightClick: str
-    UsingPopupWindow: str
-    IframeRedirection: str
-    AgeofDomain: str
-    DNSRecording: str
-    WebsiteTraffic: str
-    PageRank: str
-    GoogleIndex: str
-    LinksPointingToPage: str
-    StatsReport: str
+    Favicon: int
+    NonStdPort: int
+    HTTPSDomainURL: int
+    RequestURL: int
+    AnchorURL: int
+    LinksInScriptTags: int
+    ServerFormHandler: int
+    InfoEmail: int
+    AbnormalURL: int
+    WebsiteForwarding: int
+    StatusBarCust: int
+    DisableRightClick: int
+    UsingPopupWindow: int
+    IframeRedirection: int
+    AgeofDomain: int
+    DNSRecording: int
+    WebsiteTraffic: int
+    PageRank: int
+    GoogleIndex: int
+    LinksPointingToPage: int
+    StatsReport: int
 
 
 
 @app.post("/predict")
 def get_predict(user_data: ParmsData):
-    series = pd.Series(user_data.model_dump())
-    return {
-            "prediction": manager.test_model.predict(series),
-            "result map": "1 = Phishing Website, -1 = Non-Phishing Website"
-            }
+    try:
+        series = pd.Series(user_data.model_dump())
+        predict =  manager.test_model.predict(series)
+        return {
+                "prediction":predict,
+                "result map": "1 = Phishing Website, -1 = Non-Phishing Website"
+                }
+    except Exception as e:
+        return {"Error": e}
+
 
 
 @app.get("/precision")
