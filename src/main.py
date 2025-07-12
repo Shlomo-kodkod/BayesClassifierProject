@@ -1,9 +1,6 @@
-from src.menu.manager import Manager
-
-
+from src.menu.menu import Menu
 
 
 if __name__ == "__main__":
-    manager = Manager()
-    score = manager.test_model.test_model()
-    print(f"Model percent accuracy is: {score}")
+    menu = Menu()
+    menu.main()
