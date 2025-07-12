@@ -4,7 +4,6 @@ import os
 
 
 class Menu:
-
     @staticmethod
     def display_menu():
         print("""

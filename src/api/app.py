@@ -4,11 +4,10 @@ from pydantic import BaseModel
 import pandas as pd
 from src.menu.manager import Manager
 
-manager = Manager()
+manager = Manager("data/phishing.csv")
 app = FastAPI()
 
 class ParmsData(BaseModel):
-    Index: int
     UsingIP: int
     LongURL: int
     ShortURL: int
