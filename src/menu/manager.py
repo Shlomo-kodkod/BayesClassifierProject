@@ -6,11 +6,11 @@ from src.models.test_model import TestModel
 
 
 class Manager:
-    def __init__(self, file_path):
+    def __init__(self, file_path, target):
         self.__data = FileLoader.load_data(file_path)
         self.__clean_data = DataCleaner(self.__data)
         self.__clean_data.clean_data()
-        self.__trainer = NaiveBayes(self.__clean_data.train_data, "class")
+        self.__trainer = NaiveBayes(self.__clean_data.train_data, target)
         self.__trainer.fit()
         self.__test_model = TestModel(self.__clean_data.test_data, self.__trainer)
 

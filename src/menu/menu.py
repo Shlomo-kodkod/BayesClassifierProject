@@ -25,6 +25,11 @@ class Menu:
         return path
 
     @staticmethod
+    def get_target_column():
+        target = input("Enter target column: ")
+        return target
+
+    @staticmethod
     def is_file_exist(path):
         return os.path.isfile(FileLoader.build_abs_path(path))
 
@@ -32,11 +37,15 @@ class Menu:
     def rum_menu():
         path = Menu.get_file_path()
         if Menu.is_file_exist(path):
-            print("Build the model.")
-            manager = Manager(path)
-            print("testing model accuracy.")
-            score = manager.test_model.test_model()
-            print(f"Model percent accuracy is: {score}")
+            target_column = Menu.get_target_column()
+            try:
+                print("Build the model.")
+                manager = Manager(path, target_column)
+                print("testing model accuracy.")
+                score = manager.test_model.test_model()
+                print(f"Model percent accuracy is: {score}")
+            except Exception as e:
+                print(f"Error: {e} column not found.")
         else:
             print("Can't find this file. Try agin later.")
         
