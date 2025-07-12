@@ -6,7 +6,7 @@ class FileLoader(DataLoader):
 
     @staticmethod
     def build_abs_path(file_path):
-        if not os.path.isabs(file_path):
+        if not os.path.isabs(rf"{file_path}"):
             project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
             file_path = os.path.join(project_root, file_path)
         return os.path.normpath(file_path)
