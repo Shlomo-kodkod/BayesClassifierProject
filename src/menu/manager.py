@@ -6,10 +6,9 @@ from src.models.test_model import TestModel
 
 
 class Manager:
-    def __init__(self):
-        self.__data = FileLoader.load_data(r"data/phishing.csv")
+    def __init__(self, file_path):
+        self.__data = FileLoader.load_data(file_path)
         self.__clean_data = DataCleaner(self.__data)
-        print(self.__clean_data.train_data.columns)
         self.__clean_data.clean_data()
         self.__trainer = NaiveBayes(self.__clean_data.train_data, "class")
         self.__trainer.fit()
