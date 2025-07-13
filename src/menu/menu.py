@@ -39,9 +39,13 @@ class Menu:
         if Menu.is_file_exist(path):
             target_column = Menu.get_target_column()
             try:
+                manager = Manager()
+                print("loading data.")
+                manager.load_data(path)
                 print("Build the model.")
-                manager = Manager(path, target_column)
+                manager.create_model(target_column)
                 print("testing model accuracy.")
+                manager.create_model_test()
                 score = manager.test_model.test_model()
                 print(f"Model percent accuracy is: {score}")
             except Exception as e:
