@@ -42,6 +42,7 @@ class Menu:
                 manager = Manager()
                 print("loading data.")
                 manager.load_data(path)
+                manager.clean_data(manager.data)
                 print("Build the model.")
                 manager.create_model(target_column)
                 print("testing model accuracy.")

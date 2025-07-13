@@ -1,5 +1,3 @@
-import pandas as pd
-
 from src.menu.menu import Menu
 
 

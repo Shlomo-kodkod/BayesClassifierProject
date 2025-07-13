@@ -27,7 +27,7 @@ class NaiveBayes:
                 self.__model_data[cls][col] = prob_calc
    
     @property
-    def model_data(self) -> dict[any, dict[any, dict[any, float]]]:
+    def model_data(self) -> dict:
         return self.__model_data
     
     @property

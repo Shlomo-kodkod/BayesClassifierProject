@@ -8,26 +8,27 @@ manager = Manager()
 app = FastAPI()
 
 
-class ModelSetup(BaseModel):
-    csv_path: str
+class ModelDataSetup(BaseModel):
+    data: list[dict]
     target_column: str
 
+class UserInput(BaseModel):
+    pass
 
 @app.post("/model")
-def create_model(table_data: ModelSetup):
+def create_model_from_data(table_data: ModelDataSetup):
     try:
-        path, target = table_data.csv_path, table_data.target_column
-        manager.load_data(path)
-        manager.create_model(target)
+        df = pd.DataFrame(table_data.data)
+        manager.clean_data(df)
+        manager.create_model(table_data.target_column)
         manager.create_model_test()
-        return {
-            "message": "Model setup successful"}
+        return {"message": "Model setup successful"}
     except Exception as e:
-        return {"Error": e}
+        return {"Error": str(e)}
 
 
 @app.post("/predict")
-def get_predict(user_data):
+def get_predict(user_data: UserInput):
     try:
         series = pd.Series(user_data.model_dump())
         predict =  manager.test_model.predict(series)
@@ -39,7 +40,10 @@ def get_predict(user_data):
 
 @app.get("/precision")
 def get_precision():
-    return {"model precision": manager.test_model.test_model()}
+    try:
+        return {"model precision": manager.test_model.test_model()}
+    except Exception as e:
+        return {"Error": e}
 
 
 
