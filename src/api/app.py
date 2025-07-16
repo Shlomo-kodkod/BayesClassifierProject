@@ -7,14 +7,16 @@ from src.menu.manager import Manager
 manager = Manager()
 app = FastAPI()
 
-
+# Data model for data and target column
 class ModelDataSetup(BaseModel):
     data: list[dict]
     target_column: str
 
+# Data model for user input for prediction 
 class UserInput(BaseModel):
     pass
 
+# Endpoint to create and train a model from provided data and target column.
 @app.post("/model")
 def create_model_from_data(table_data: ModelDataSetup):
     try:
@@ -26,7 +28,7 @@ def create_model_from_data(table_data: ModelDataSetup):
     except Exception as e:
         return {"Error": str(e)}
 
-
+#Endpoint to get a prediction for user input data.
 @app.post("/predict")
 def get_predict(user_data: UserInput):
     try:
@@ -38,14 +40,13 @@ def get_predict(user_data: UserInput):
     except Exception as e:
         return {"Error": e}
 
+#Endpoint to get the model accuracy.
 @app.get("/precision")
 def get_precision():
     try:
         return {"model precision": manager.test_model.test_model()}
     except Exception as e:
         return {"Error": e}
-
-
 
 if __name__ == "__main__":
     uvicorn.run(app,host="127.0.0.1", port=8000)

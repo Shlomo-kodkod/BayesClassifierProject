@@ -2,7 +2,7 @@ from src.menu.manager import Manager
 from src.utils.file_loader import FileLoader
 import os
 
-
+# Menu class for user interaction and running the model pipeline
 class Menu:
     @staticmethod
     def display_menu():
@@ -14,25 +14,30 @@ class Menu:
  [Any key] Exit
  """)
 
+    # Get the user's menu choice
     @staticmethod
     def get_choice():
         choice = input()
         return choice
 
+    # Get the CSV file path
     @staticmethod
     def get_file_path():
         path = input("Enter the csv file path: ")
         return path
 
+    # Get the target column name
     @staticmethod
     def get_target_column():
         target = input("Enter target column: ")
         return target
 
+    # Check if the file exists 
     @staticmethod
     def is_file_exist(path):
         return os.path.isfile(FileLoader.build_abs_path(path))
 
+    # Run the process of loading data, training, and testing the model
     @staticmethod
     def rum_menu():
         path = Menu.get_file_path()

@@ -2,8 +2,10 @@ import pandas as pd
 import os
 from src.utils.data_loader import DataLoader
 
+# FileLoader load CSV files from disk
 class FileLoader(DataLoader):
 
+    # Build an absolute path from a relative path 
     @staticmethod
     def build_abs_path(file_path):
         if not os.path.isabs(rf"{file_path}"):
@@ -11,6 +13,7 @@ class FileLoader(DataLoader):
             file_path = os.path.join(project_root, file_path)
         return os.path.normpath(file_path)
 
+    # Load a CSV file into a DataFrame
     @staticmethod
     def load_data(file_path: str) -> pd.DataFrame | None:
         try:

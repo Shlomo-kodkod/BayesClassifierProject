@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+# Abstract base class for data loaders
 class DataLoader(ABC):
     @staticmethod
     @abstractmethod
