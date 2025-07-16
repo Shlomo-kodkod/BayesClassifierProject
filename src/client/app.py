@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from client import Client
 
-
+# Streamlit application for interacting with the Naive Bayes backend
 class App:
     def __init__(self):
         self.__client = Client()
@@ -15,6 +15,7 @@ class App:
         if 'feature_columns' not in st.session_state:
             st.session_state.feature_columns = []
 
+    # Load CSV data from user upload and select target column
     @staticmethod
     def load_data():
         st.header("Create model")
@@ -35,6 +36,7 @@ class App:
                 st.error(f"Error processing the file: {str(e)}")
         return None, None
 
+    # Send data and target column to backend to create a model
     def create_model(self, df, target_column):
         if st.button("create model", type="primary"):
             with st.spinner("creating model"):
@@ -45,6 +47,7 @@ class App:
                 st.success("The model was successfully created!")
                 st.session_state.model_created = True
 
+    # Collect user input for prediction based on feature columns
     @staticmethod
     def get_user_input():
         user_input = {}
@@ -59,7 +62,7 @@ class App:
                     user_input[feature] = st.selectbox(f"{feature}", options=unique_values)
         return user_input
 
-
+    # Display prediction interface and results
     def prediction(self):
         st.header("prediction")
         if st.session_state.model_created and st.session_state.df is not None:
@@ -78,7 +81,7 @@ class App:
         else:
             st.info("A model must be created first to make predictions")
 
-
+    # Display model accuracy from backend
     def accuracy(self):
         st.header("The accuracy of the model")
         if st.session_state.model_created:
