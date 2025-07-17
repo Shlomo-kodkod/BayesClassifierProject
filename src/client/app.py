@@ -1,6 +1,15 @@
 import streamlit as st
 import pandas as pd
+import logging
 from client import Client
+
+# Configure logging to save all logs to a file and console
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s %(levelname)s %(name)s: %(message)s',
+    handlers=[logging.FileHandler('app.log', encoding='utf-8')])
+
+logger = logging.getLogger(__name__)
 
 # Streamlit application for interacting with the Naive Bayes backend
 class App:
@@ -24,6 +33,7 @@ class App:
             try:
                 df = pd.read_csv(uploaded_file)
                 st.session_state.df = df
+                logger.info("File uploaded and loaded successfully.")
                 st.success("File loaded successfully.")
                 with st.expander("Preview the data"):
                     st.dataframe(df.head())
@@ -33,6 +43,7 @@ class App:
                     st.session_state.feature_columns = [col for col in df.columns if col != target_column]
                     return df, target_column
             except Exception as e:
+                logger.error(f"Error processing the uploaded file: {e}")
                 st.error(f"Error processing the file: {str(e)}")
         return None, None
 
@@ -40,10 +51,13 @@ class App:
     def create_model(self, df, target_column):
         if st.button("create model", type="primary"):
             with st.spinner("creating model"):
+                logger.info("Sending data to backend to create model.")
                 result = self.__client.create_model(df, target_column)
             if "Error" in result:
+                logger.error(f"Error creating the model: {result['Error']}")
                 st.error(f"Error creating the model: {result['Error']}")
             else:
+                logger.info("The model was successfully created!")
                 st.success("The model was successfully created!")
                 st.session_state.model_created = True
 
@@ -72,9 +86,11 @@ class App:
             user_input = self.get_user_input()
             if st.button("predict", type="primary"):
                 with st.spinner("Predicting..."):
+                    logger.info(f"Sending prediction request")
                     prediction_result = self.__client.get_prediction(user_input)
 
                 if "Error" in prediction_result:
+                    logger.error(f"Error predicting: {prediction_result['Error']}")
                     st.error(f"Error predicting: {prediction_result['Error']}")
                 else:
                     st.success(f"prediction: {prediction_result['prediction']}")
@@ -87,8 +103,10 @@ class App:
         if st.session_state.model_created:
             if st.button("Check model accuracy"):
                 with st.spinner("Checking model accuracy..."):
+                    logger.info("Requesting model accuracy from backend.")
                     precision_result = self.__client.get_precision()
                 if "Error" in precision_result:
+                    logger.error(f"Error getting model accuracy: {precision_result['Error']}")
                     st.error(f"Error getting model accuracy: {precision_result['Error']}")
                 else:
                     st.metric("Accuracy of the current model", f"{precision_result['model precision']:.2f}%")
@@ -107,7 +125,9 @@ class App:
         self.accuracy()
 
 
-
+if __name__ == "__main__":
+    app = App()
+    app.run()
 
 
 
