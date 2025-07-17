@@ -1,8 +1,8 @@
 import pandas as pd
 
+
 # Implements the Naive Bayes algorithm for training on data
 class NaiveBayes:
-    
     def __init__(self, data:pd.DataFrame, target: str | int):
         self.__train_data = data
         self.__data_columns = [col for col in data.columns if col != target]
@@ -27,17 +27,17 @@ class NaiveBayes:
                      prob_calc[val] = ((val_count.get(val, 0) + 1) / (len(df_cls) + len(unique_val)))
                 
                 self.__model_data[cls][col] = prob_calc
-   
-   # Returns the model probability dictionary
+
+    # Returns the model probability dictionary
     @property
     def model_data(self) -> dict:
         return self.__model_data
-    
+
     # Returns the prior probabilities for each target value
     @property
     def target_value(self) -> dict[str | int, float] | None:
         return self.__values_map
-    
+
     # Returns the name of the target column
     @property
     def target_column(self) -> str | int:

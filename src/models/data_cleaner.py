@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 # Class for cleaning the data and splitting it into train and test sets
 class DataCleaner:
     def __init__(self, data: pd.DataFrame):
@@ -9,7 +10,9 @@ class DataCleaner:
     # Fill missing values in each column with the most frequent value
     def clean_data(self):
         for col in self.__all_data.columns:
-            self.__all_data[col] = self.__all_data[col].fillna(self.__all_data[col].value_counts().idxmax())
+            num_missing = self.__all_data[col].isna().sum()
+            if num_missing > 0:
+                self.__all_data[col] = self.__all_data[col].fillna(self.__all_data[col].value_counts().idxmax())
 
     # Return the training set 
     @property

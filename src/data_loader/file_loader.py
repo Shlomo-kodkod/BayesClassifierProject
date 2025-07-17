@@ -1,6 +1,9 @@
 import pandas as pd
 import os
-from src.utils.data_loader import DataLoader
+import logging
+from src.data_loader.data_loader import DataLoader
+
+logger = logging.getLogger(__name__)
 
 # FileLoader load CSV files from disk
 class FileLoader(DataLoader):
@@ -18,9 +21,10 @@ class FileLoader(DataLoader):
     def load_data(file_path: str) -> pd.DataFrame | None:
         try:
             file_path = FileLoader.build_abs_path(file_path)
-            return pd.read_csv(file_path)
+            df = pd.read_csv(file_path)
+            return df
         except Exception as e:
-            print(f"Error: {e}")
+            logger.error(f"Failed to load data from {file_path}: {e}")
             return None
 
 
