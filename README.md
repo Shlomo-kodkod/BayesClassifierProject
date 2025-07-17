@@ -24,7 +24,7 @@ This project provides a simple framework for classifying text data using the Nai
 
 ## How to Run
 1. Clone the repository.
-2. (Optional) Create a virtual environment and activate it.
+2. Create a virtual environment and activate it.
 3. Install required Python packages:
    ```bash
    pip install -r requirements.txt
@@ -39,7 +39,7 @@ This project provides a simple framework for classifying text data using the Nai
    ```
 6. To run the client application:
    ```bash
-   python src/client/app.py
+   streamlit run src/client/app.py
    ```
 
 ## Example Usage
