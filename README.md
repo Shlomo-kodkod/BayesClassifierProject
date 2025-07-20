@@ -31,11 +31,11 @@ This project provides a simple framework for classifying text data using the Nai
    ```
 4. Run the main script:
    ```bash
-   python src/main.py
+   python -m src.main
    ```
 5. To run the API server:
    ```bash
-   python src/api/app.py
+   python -m src.api.app
    ```
 6. To run the client application:
    ```bash

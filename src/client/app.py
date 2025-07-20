@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import logging
-from client import Client
+from src.client.client import Client
 
 # Configure logging to save all logs to a file and console
 logging.basicConfig(
