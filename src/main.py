@@ -1,12 +1,8 @@
-import logging
-from src.menu.menu import Menu
+import uvicorn
+from menu.menu import Menu
+from api.app import app
+from client.app import App
 
-# Configure logging to save all logs to a file
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s %(levelname)s %(name)s: %(message)s',
-    handlers=[logging.FileHandler('main.log', encoding='utf-8')])
 
 if __name__ == "__main__":
-    menu = Menu()
-    menu.main()
+    uvicorn.run(app,host="127.0.0.1", port=8000)

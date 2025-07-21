@@ -3,7 +3,7 @@ import uvicorn
 from pydantic import BaseModel
 import pandas as pd
 import logging
-from src.menu.manager import Manager
+from menu.manager import Manager
 
 # Configure logging to save all logs to a file
 logging.basicConfig(
@@ -65,6 +65,3 @@ def get_precision():
     except Exception as e:
         logger.error(f"Error in /precision: {e}")
         return {"Error": str(e)}
-
-if __name__ == "__main__":
-    uvicorn.run(app,host="127.0.0.1", port=8000)

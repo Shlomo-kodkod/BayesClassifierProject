@@ -1,6 +1,6 @@
 import pandas as pd
-from src.models.naive_bayes import NaiveBayes
-from src.models.predictor import Predictor
+from models.naive_bayes import NaiveBayes
+from models.predictor import Predictor
 
 
 # Class for testing the model accuracy on new data

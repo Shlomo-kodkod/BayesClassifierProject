@@ -1,5 +1,5 @@
-from src.menu.manager import Manager
-from src.data_loader.file_loader import FileLoader
+from menu.manager import Manager
+from data_loader.file_loader import FileLoader
 import os
 
 # Menu class for user interaction and running the model pipeline

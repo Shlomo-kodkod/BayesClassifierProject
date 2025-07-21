@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 import logging
-from src.data_loader.data_loader import DataLoader
+from data_loader.data_loader import DataLoader
 
 logger = logging.getLogger(__name__)
 

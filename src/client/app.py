@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import logging
-from src.client.client import Client
+from client.client import Client
 
 # Configure logging to save all logs to a file and console
 logging.basicConfig(
@@ -125,9 +125,9 @@ class App:
         self.accuracy()
 
 
-if __name__ == "__main__":
-    app = App()
-    app.run()
+# if __name__ == "__main__":
+#     app = App()
+#     app.run()
 
 
 
