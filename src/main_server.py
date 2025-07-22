@@ -1,7 +1,5 @@
 import uvicorn
-from menu.menu import Menu
-from api.app import app
-from client.app import App
+from src.api.app import app
 
 
 if __name__ == "__main__":

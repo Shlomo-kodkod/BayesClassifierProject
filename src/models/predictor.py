@@ -1,5 +1,5 @@
 import pandas as pd
-from models.naive_bayes import NaiveBayes
+from src.models.naive_bayes import NaiveBayes
 
 
 # Class for predicting the target value using a trained NaiveBayes model

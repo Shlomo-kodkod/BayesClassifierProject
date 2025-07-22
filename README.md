@@ -29,17 +29,13 @@ This project provides a simple framework for classifying text data using the Nai
    ```bash
    pip install -r requirements.txt
    ```
-4. Run the main script:
+4. Run the server:
    ```bash
-   python -m src.main
+    python -m src.main_server
    ```
-5. To run the API server:
+5. To run the client application:
    ```bash
-   python -m src.api.app
-   ```
-6. To run the client application:
-   ```bash
-   streamlit run src/client/app.py
+    streamlit run src/main_client.py
    ```
 
 ## Example Usage

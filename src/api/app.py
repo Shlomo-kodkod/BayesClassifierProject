@@ -3,7 +3,7 @@ import uvicorn
 from pydantic import BaseModel
 import pandas as pd
 import logging
-from menu.manager import Manager
+from src.menu.manager import Manager
 
 # Configure logging to save all logs to a file
 logging.basicConfig(

@@ -1,8 +1,8 @@
-from data_loader.file_loader import FileLoader
-from models.data_cleaner import DataCleaner
-from models.naive_bayes import NaiveBayes
-from models.test_model import TestModel
-from models.predictor import Predictor
+from src.data_loader.file_loader import FileLoader
+from src.models.data_cleaner import DataCleaner
+from src.models.naive_bayes import NaiveBayes
+from src.models.test_model import TestModel
+from src.models.predictor import Predictor
 import logging
 
 logger = logging.getLogger(__name__)
