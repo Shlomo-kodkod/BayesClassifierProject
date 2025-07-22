@@ -38,6 +38,5 @@ This project provides a simple framework for classifying text data using the Nai
     streamlit run src/main_client.py
    ```
 
-## Example Usage
-You can use the menu interface to load data, train the model, and to get model accuracy. The API can also be used to send classification requests programmatically.
+
 
