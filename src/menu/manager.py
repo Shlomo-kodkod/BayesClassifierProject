@@ -1,3 +1,4 @@
+import pandas as pd
 from src.data_loader.file_loader import FileLoader
 from src.models.data_cleaner import DataCleaner
 from src.models.naive_bayes import NaiveBayes
@@ -17,14 +18,14 @@ class Manager:
         self.__predictor = None
 
     # Load data from a file using FileLoader
-    def load_data(self, file_path: str):
-        logger.info(f"Loading data from {file_path}")
-        data = FileLoader.load_data(file_path)
-        self.__data = data
+    def load_data(self, path: str):
+        logger.info(f"Loading data from {path}")
+        data = FileLoader.load_data(path)
         logger.info("Data loaded successfully")
+        self.__data = data
 
     # Clean the data using DataCleaner
-    def clean_data(self, df):
+    def data_cleaner(self, df):
         logger.info("Starting data cleaning")
         clean_data = DataCleaner(df)
         clean_data.clean_data()
@@ -32,7 +33,9 @@ class Manager:
         logger.info("Data cleaning completed")
 
     # Train a NaiveBayes model with cleaned training data
-    def create_model(self, target: str):
+    def create_model(self, path: str, target: str):
+        self.load_data(path)
+        self.data_cleaner(self.data)
         logger.info(f"Training NaiveBayes model with target: {target}")
         trainer = NaiveBayes(self.__clean_data.train_data, target)
         trainer.fit()
@@ -45,10 +48,12 @@ class Manager:
         self.__test_model = TestModel(self.__clean_data.test_data, self.__model)
         logger.info("TestModel instance created")
 
+    # Create a Predictor instance for making predictions
     def create_predictor(self):
         logger.info("Creating Predictor instance")
         self.__predictor = Predictor(self.__model)
         logger.info("Predictor instance created")
+
 
     # Return the raw loaded data
     @property
