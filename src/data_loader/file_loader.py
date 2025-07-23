@@ -21,6 +21,9 @@ class FileLoader(DataLoader):
     def load_data(file_path: str) -> pd.DataFrame | None:
         try:
             file_path = FileLoader.build_abs_path(file_path)
+            if not os.path.exists(file_path):
+                logger.error(f"File not found: {file_path}")
+                return None
             df = pd.read_csv(file_path)
             return df
         except Exception as e:

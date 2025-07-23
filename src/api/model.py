@@ -39,7 +39,7 @@ def get_model():
         return Response(content=model_data, media_type="application/octet-stream")
     except Exception as e:
         logger.error(f"Error in /model: {e}")
-        return HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e))
 
 #Endpoint to get the model accuracy.
 @app.get("/precision")
@@ -50,7 +50,7 @@ def get_precision():
         return {"model precision": precision}
     except Exception as e:
         logger.error(f"Error in /precision: {e}")
-        return HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e))
 
 #Endpoint to get the confusion matrix.
 @app.get("/matrix")
@@ -62,4 +62,4 @@ def confusion_matrix():
         return {"confusion matrix": matrix}
     except Exception as e:
         logger.error(f"Error in /: {e}")
-        return HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e))
