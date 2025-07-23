@@ -7,7 +7,7 @@ class Predictor:
     def __init__(self ,model: NaiveBayes):
         self.__model = model
 
-    # Predict the target value for a single row
+    #Predict the target value for a single row
     def predict(self, row: pd.Series) -> str | int:
         result = dict()
         for target in self.__model.target_value:
@@ -17,3 +17,5 @@ class Predictor:
             result[target] = temp * self.__model.target_value[target]
         prediction = max(result, key=result.get)
         return prediction
+    
+    

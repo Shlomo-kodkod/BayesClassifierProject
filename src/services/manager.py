@@ -1,10 +1,10 @@
 import pandas as pd
+import logging
 from src.data_loader.file_loader import FileLoader
-from src.models.data_cleaner import DataCleaner
+from src.preprocessing.data_cleaner import DataCleaner
 from src.models.naive_bayes import NaiveBayes
 from src.models.test_model import TestModel
 from src.models.predictor import Predictor
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -15,7 +15,6 @@ class Manager:
         self.__clean_data = None
         self.__model = None
         self.__test_model = None
-        self.__predictor = None
 
     # Load data from a file using FileLoader
     def load_data(self, path: str):
@@ -48,13 +47,6 @@ class Manager:
         self.__test_model = TestModel(self.__clean_data.test_data, self.__model)
         logger.info("TestModel instance created")
 
-    # Create a Predictor instance for making predictions
-    def create_predictor(self):
-        logger.info("Creating Predictor instance")
-        self.__predictor = Predictor(self.__model)
-        logger.info("Predictor instance created")
-
-
     # Return the raw loaded data
     @property
     def data(self):
@@ -62,18 +54,13 @@ class Manager:
 
     # Return the trained model
     @property
-    def model(self):
+    def model_data(self):
         return self.__model
+
 
     # Return the test model instance
     @property
     def test_model(self):
         return self.__test_model
 
-    # Return the predictor instance
-    @property
-    def predictor(self):
-        return self.__predictor
-
-
-
+    

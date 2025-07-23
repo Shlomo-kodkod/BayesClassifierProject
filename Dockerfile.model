@@ -1,0 +1,16 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY data/customer_purchase_data.csv ./data/customer_purchase_data.csv
+COPY src/core/ ./src/core/
+COPY src/data_loader/ ./src/data_loader/
+COPY src/preprocessing/ ./src/preprocessing/
+COPY src/models/ ./src/models/
+COPY src/services/ ./src/services/
+COPY src/api/model.py ./src/api/model.py
+COPY requirements.txt .
+
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+CMD ["uvicorn", "src.api.model:app", "--host", "0.0.0.0", "--port", "8000"]

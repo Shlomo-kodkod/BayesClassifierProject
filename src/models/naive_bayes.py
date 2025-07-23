@@ -27,7 +27,8 @@ class NaiveBayes:
                      prob_calc[val] = ((val_count.get(val, 0) + 1) / (len(df_cls) + len(unique_val)))
                 
                 self.__model_data[cls][col] = prob_calc
-
+    
+    
     # Returns the model probability dictionary
     @property
     def model_data(self) -> dict:

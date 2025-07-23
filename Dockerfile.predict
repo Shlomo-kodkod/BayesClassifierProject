@@ -1,0 +1,13 @@
+FROM python:3.11-slim-buster
+
+WORKDIR /app
+
+COPY src/core/ ./src/core/
+COPY src/models/naive_bayes.py ./src/models/naive_bayes.py
+COPY src/models/predictor.py ./src/models/predictor.py 
+COPY src/api/predict.py ./src/api/predict.py
+COPY requirements.txt .
+
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+CMD ["uvicorn", "src.api.predict:app", "--host", "0.0.0.0", "--port", "8001"]
