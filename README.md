@@ -30,7 +30,7 @@ The model expects customer data with these fields:
 ## Quick Start with Docker
 
 
-### Option 2: Manual Docker
+### Manual Docker
 ```bash
 # Create network
 docker network create class-app
